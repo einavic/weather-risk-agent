@@ -1,0 +1,14 @@
+[
+  {"id": "miami", "state": "FL", "region": "South", "lat": 25.76, "lon": -80.19, "county_fips": "12086"},
+  {"id": "houston", "state": "TX", "region": "South", "lat": 29.76, "lon": -95.37, "county_fips": "48201"},
+  {"id": "dallas", "state": "TX", "region": "South", "lat": 32.78, "lon": -96.80, "county_fips": "48113"},
+  {"id": "atlanta", "state": "GA", "region": "South", "lat": 33.75, "lon": -84.39, "county_fips": "13121"},
+  {"id": "memphis", "state": "TN", "region": "South", "lat": 35.15, "lon": -90.05, "county_fips": "47157"},
+  {"id": "chicago", "state": "IL", "region": "Midwest", "lat": 41.88, "lon": -87.63, "county_fips": "17031"},
+  {"id": "minneapolis", "state": "MN", "region": "Midwest", "lat": 44.98, "lon": -93.27, "county_fips": "27053"},
+  {"id": "kansas_city", "state": "MO", "region": "Midwest", "lat": 39.10, "lon": -94.58, "county_fips": "29095"},
+  {"id": "columbus", "state": "OH", "region": "Midwest", "lat": 39.96, "lon": -83.00, "county_fips": "39049"},
+  {"id": "indianapolis", "state": "IN", "region": "Midwest", "lat": 39.77, "lon": -86.16, "county_fips": "18097"},
+  {"id": "denver", "state": "CO", "region": "West", "lat": 39.74, "lon": -104.99, "county_fips": "08031"},
+  {"id": "seattle", "state": "WA", "region": "West", "lat": 47.61, "lon": -122.33, "county_fips": "53033"}
+]
