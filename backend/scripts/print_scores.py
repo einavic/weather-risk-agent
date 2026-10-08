@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from app.hub_risk import hub_risk
+from app.scoring.hub_risk import hub_risk
 
 HUBS_PATH = Path(__file__).resolve().parents[2] / "data" / "hubs.json"
 HAZARDS = ["hurricane", "flood", "winter", "heat"]

@@ -3,7 +3,7 @@ import logging
 
 import anthropic
 
-from app.tools import TOOL_FUNCTIONS, TOOLS
+from app.agent.tools import TOOL_FUNCTIONS, TOOLS
 
 MODEL = "claude-opus-5-5"
 MAX_TOKENS = 16000

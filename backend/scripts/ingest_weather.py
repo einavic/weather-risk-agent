@@ -1,8 +1,8 @@
 import json
 from pathlib import Path
 
-from app.db import get_connection
-from app.open_meteo import fetch_daily, parse_daily
+from app.data_layer.db import get_connection
+from app.data_layer.open_meteo import fetch_daily, parse_daily
 
 HUBS_PATH = Path(__file__).resolve().parents[2] / "data" / "hubs.json"
 START = "2021-01-01"

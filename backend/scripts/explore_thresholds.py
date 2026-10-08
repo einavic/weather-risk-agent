@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from app.db import get_connection
+from app.data_layer.db import get_connection
 
 HUBS_PATH = Path(__file__).resolve().parents[2] / "data" / "hubs.json"
 YEARS = 5.0

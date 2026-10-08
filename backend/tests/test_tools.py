@@ -1,6 +1,6 @@
 import pytest
 
-from app.tools import get_hub_risk, get_weather_stats, rank_hubs
+from app.agent.tools import get_hub_risk, get_weather_stats, rank_hubs
 
 
 def test_get_hub_risk_returns_hub_caps_and_weights():

@@ -1,6 +1,6 @@
 import pytest
 
-from app.scoring import composite, hazard_scores, is_flood_related, is_hurricane, normalise
+from app.scoring.scoring import composite, hazard_scores, is_flood_related, is_hurricane, normalise
 
 
 def test_normalise_at_zero():

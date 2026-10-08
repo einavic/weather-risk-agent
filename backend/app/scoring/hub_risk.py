@@ -1,5 +1,5 @@
-from app.db import get_connection
-from app.scoring import (
+from app.data_layer.db import get_connection
+from app.scoring.scoring import (
     CAPS,
     HEAVY_RAIN_MM,
     HOT_TEMP_MAX_C,

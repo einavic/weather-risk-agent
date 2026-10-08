@@ -1,11 +1,11 @@
 import json
 from pathlib import Path
 
-from app.db import get_connection
-from app.hub_risk import hub_risk
-from app.scoring import CAPS, WEIGHTS
+from app.data_layer.db import get_connection
+from app.scoring.hub_risk import hub_risk
+from app.scoring.scoring import CAPS, WEIGHTS
 
-HUBS_PATH = Path(__file__).resolve().parents[2] / "data" / "hubs.json"
+HUBS_PATH = Path(__file__).resolve().parents[3] / "data" / "hubs.json"
 HUBS = json.loads(HUBS_PATH.read_text())
 HUB_IDS = [hub["id"] for hub in HUBS]
 REGIONS = sorted({hub["region"] for hub in HUBS})

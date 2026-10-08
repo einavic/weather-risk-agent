@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from app.open_fema import parse_declarations
+from app.data_layer.open_fema import parse_declarations
 
 SAMPLE_PATH = Path(__file__).parent / "open_fema_sample.json"
 

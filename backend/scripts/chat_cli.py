@@ -5,7 +5,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from app.agent import run_agent
+from app.agent.agent import run_agent
 
 ROOT = Path(__file__).resolve().parents[2]
 LOGS_DIR = ROOT / "logs"

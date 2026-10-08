@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from app.open_meteo import parse_daily
+from app.data_layer.open_meteo import parse_daily
 
 SAMPLE_PATH = Path(__file__).parent / "open_meteo_sample.json"
 
