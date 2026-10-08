@@ -143,4 +143,41 @@ TOOLS = [
             "additionalProperties": False,
         },
     },
+    {
+        # No Python function: the agent loop validates this input with FinalAnswer (schema.py).
+        "name": "final_answer",
+        "description": (
+            "Give your final answer to the user. Always finish by calling this tool, "
+            "on its own, after any other tools."
+        ),
+        "strict": True,
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "answer": {"type": "string", "description": "The answer, in plain text."},
+                "hubs": {
+                    "type": "array",
+                    "items": {"type": "string", "enum": HUB_IDS},
+                    "description": "The hub ids the answer is about.",
+                },
+                "key_numbers": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "hub_id": {"type": "string", "enum": HUB_IDS},
+                            "label": {"type": "string"},
+                            "value": {"type": "number"},
+                        },
+                        "required": ["hub_id", "label", "value"],
+                        "additionalProperties": False,
+                    },
+                    "description": "Main numbers from the answer, each copied from a tool result.",
+                },
+                "caveat": {"type": "string", "description": "The one caveat that matters most."},
+            },
+            "required": ["answer", "hubs", "key_numbers", "caveat"],
+            "additionalProperties": False,
+        },
+    },
 ]

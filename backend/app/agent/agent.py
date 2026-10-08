@@ -2,7 +2,9 @@ import json
 import logging
 
 import anthropic
+from pydantic import ValidationError
 
+from app.agent.schema import FinalAnswer
 from app.agent.tools import TOOL_FUNCTIONS, TOOLS
 
 MODEL = "claude-opus-5-5"
@@ -43,7 +45,18 @@ Answer style:
   tables or bullet lists.
 - Be brief: lead with the direct answer, usually in 2 to 5 sentences. Add
   more only if the question asks for it.
-- Give at most one caveat, the one that matters most for this question.
+- Put the single caveat that matters most in the caveat field, not in answer.
+
+Finishing:
+- Always finish by calling the final_answer tool, never with plain text.
+  Call it on its own, after any other tools.
+- answer follows the answer style rules above.
+- hubs lists the hub ids the answer is about.
+- key_numbers holds the main numbers from your answer. Every value must be
+  copied exactly from a tool result. Use a short label, such as
+  "winter score" or "snow days per year".
+- If you need to ask a clarifying question, put it in answer and leave
+  hubs and key_numbers empty.
 """
 
 logger = logging.getLogger(__name__)
@@ -65,6 +78,8 @@ def run_agent(messages):
     logger.info("Question: %s", messages[-1]["content"])
     client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from the environment
 
+    failures = 0
+
     for _ in range(MAX_TURNS):
         response = client.messages.create(
             model=MODEL,
@@ -75,21 +90,48 @@ def run_agent(messages):
         )
         messages.append({"role": "assistant", "content": response.content})
 
-        if response.stop_reason != "tool_use":
-            if response.stop_reason != "end_turn":
-                logger.warning("Stopped with stop_reason=%s", response.stop_reason)
-            answer = "".join(block.text for block in response.content if block.type == "text")
-            logger.info("Answer:\n%s", answer)
-            return answer, messages
-
-        tool_results = []
+        # Every tool_use block needs a tool_result, including final_answer,
+        # otherwise the API rejects the next follow-up question.
+        reply = []
+        final = None
+        error = None
         for block in response.content:
-            if block.type == "tool_use":
+            if block.type != "tool_use":
+                continue
+            if block.name == "final_answer":
+                try:
+                    final = FinalAnswer.model_validate(block.input)
+                    reply.append({"type": "tool_result", "tool_use_id": block.id, "content": "Answer accepted."})
+                except ValidationError as validation_error:
+                    error = f"final_answer was not valid: {validation_error}"
+                    reply.append({"type": "tool_result", "tool_use_id": block.id, "content": error, "is_error": True})
+            else:
                 result = run_tool(block.name, block.input)
                 result["tool_use_id"] = block.id
-                tool_results.append(result)
-        messages.append({"role": "user", "content": tool_results})
+                reply.append(result)
+
+        if response.stop_reason != "tool_use":
+            error = f"You replied with plain text (stop_reason={response.stop_reason}). Always finish by calling the final_answer tool."
+            reply.append({"type": "text", "text": error})
+
+        if reply:
+            messages.append({"role": "user", "content": reply})
+
+        if final is not None:
+            logger.info("Final answer: %s", final.model_dump_json())
+            return final.model_dump(), messages
+
+        if error is not None:
+            failures += 1
+            logger.warning("Invalid final answer (%d of 2): %s", failures, error)
+            if failures == 2:
+                raise RuntimeError("Model did not return a valid final answer")
 
     logger.warning("Reached MAX_TURNS=%d without a final answer", MAX_TURNS)
-    answer = "Sorry, I could not complete this question. Please try asking it in a simpler way."
+    answer = {
+        "answer": "Sorry, I could not complete this question. Please try asking it in a simpler way.",
+        "hubs": [],
+        "key_numbers": [],
+        "caveat": "",
+    }
     return answer, messages

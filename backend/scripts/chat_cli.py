@@ -31,8 +31,16 @@ def print_tool_calls(new_messages):
         if message["role"] != "assistant":
             continue
         for block in message["content"]:
-            if block.type == "tool_use":
+            if block.type == "tool_use" and block.name != "final_answer":
                 print(f"  [tool] {block.name} {json.dumps(block.input)}")
+
+
+def print_answer(final):
+    print(f"\nAgent: {final['answer']}")
+    for number in final["key_numbers"]:
+        print(f"  {number['hub_id']:13} {number['label']}: {number['value']}")
+    if final["caveat"]:
+        print(f"Caveat: {final['caveat']}")
 
 
 def main():
@@ -48,9 +56,9 @@ def main():
             break
         start = len(messages)
         messages.append({"role": "user", "content": question})
-        answer, messages = run_agent(messages)
+        final, messages = run_agent(messages)
         print_tool_calls(messages[start:])
-        print(f"\nAgent: {answer}")
+        print_answer(final)
 
 
 if __name__ == "__main__":
