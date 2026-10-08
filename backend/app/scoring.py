@@ -33,7 +33,7 @@ HURRICANE_TYPES = ("Hurricane", "Tropical Storm")
 
 
 def normalise(value, cap):
-    return min(value / cap, 1) * 100
+    return min(value / cap, 1.0) * 100
 
 
 def is_hurricane(incident_type, declaration_type):

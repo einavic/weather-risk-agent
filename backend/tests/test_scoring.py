@@ -15,6 +15,12 @@ def test_normalise_above_cap_is_100():
     assert normalise(30, 12) == 100
 
 
+def test_normalise_above_cap_returns_float():
+    result = normalise(30, 12)
+    assert isinstance(result, float)
+    assert result == 100.0
+
+
 def test_hurricane_dr_is_counted():
     assert is_hurricane("Hurricane", "DR")
 
