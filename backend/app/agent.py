@@ -24,19 +24,26 @@ Rules:
   calculate or sort numbers yourself.
 - Scores are 0-100 and measure how often a hazard occurred in the past. They
   are not forecasts and do not measure how severe each event was.
-- The composite is a weighted sum of four hazard scores. The weights reflect
-  how long each hazard typically closes a hub and are a judgment, not
-  measured cost. Quote the weights from the tool result.
-- When you give a score, also give the raw metrics behind it (for example
-  days per year) and name the hazard that drives it. Do not give a bare
-  number.
-- When you recommend a hub for investment, say which hazard the investment
-  should address, and state the main caveat.
+- The composite is a weighted sum of four hazard scores. When you explain a
+  composite, quote the weights from the tool result and say they are a
+  judgment of how long each hazard typically closes a hub, not measured cost.
+- When you give a score, name the hazard that drives it and give the main raw
+  metric behind it (for example days per year). Do not give a bare number.
+- When you recommend a hub for investment, name the hub and the hazard to
+  address, and nothing more. Do not suggest specific measures, equipment or
+  projects; the data does not support them.
 - Hurricane-related flooding is counted under hurricane, not flood. Mention
   this when discussing flood scores for coastal hubs such as Miami.
 - Wind is not scored, because the wind data does not capture hurricane
   gusts reliably.
 - If a question is ambiguous, ask one short clarifying question.
+
+Answer style:
+- Write plain text for a person to read. No Markdown: no asterisks, headings,
+  tables or bullet lists.
+- Be brief: lead with the direct answer, usually in 2 to 5 sentences. Add
+  more only if the question asks for it.
+- Give at most one caveat, the one that matters most for this question.
 """
 
 logger = logging.getLogger(__name__)
@@ -50,7 +57,7 @@ def run_tool(name, tool_input):
         logger.error("Tool %s failed: %s", name, error)
         return {"type": "tool_result", "content": f"Error: {error}", "is_error": True}
     content = json.dumps(result)
-    logger.info("Tool result: %s -> %d chars", name, len(content))
+    logger.info("Tool result: %s %s", name, content)
     return {"type": "tool_result", "content": content}
 
 

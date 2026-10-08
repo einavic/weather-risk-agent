@@ -124,7 +124,9 @@ TOOLS = [
         "description": (
             "Count the days in a date range where a daily weather value meets a condition, "
             "e.g. snowfall_cm > 0 in Denver during 2025. Data covers 2021-01-01 to 2025-12-31. "
-            "Units: snowfall cm, precipitation mm, temperatures in °C, wind gusts km/h."
+            "Units: snowfall cm, precipitation mm, temperatures in °C, wind gusts km/h. "
+            "Returns matching_days, total_days and percentage (matching_days as a share of "
+            "total_days), so one call answers a 'what percentage of days' question."
         ),
         "strict": True,
         "input_schema": {
