@@ -20,4 +20,17 @@ def get_connection():
         )
         """
     )
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS fema_declarations (
+            hub_id TEXT NOT NULL,
+            disaster_number INTEGER NOT NULL,
+            incident_type TEXT,
+            declaration_date TEXT,
+            title TEXT,
+            designated_area TEXT,
+            PRIMARY KEY (hub_id, disaster_number)
+        )
+        """
+    )
     return conn
