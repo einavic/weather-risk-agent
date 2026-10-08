@@ -26,6 +26,7 @@ def parse_declarations(data):
                 record["declarationDate"][:10],
                 record["declarationTitle"],
                 record["designatedArea"],
+                record["declarationType"],
             )
         )
     return rows

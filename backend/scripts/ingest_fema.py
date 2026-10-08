@@ -18,7 +18,7 @@ def main():
         data = fetch_declarations(state_fips, county_fips, START, END)
         rows = parse_declarations(data)
         conn.executemany(
-            "INSERT OR REPLACE INTO fema_declarations VALUES (?, ?, ?, ?, ?, ?)",
+            "INSERT OR REPLACE INTO fema_declarations VALUES (?, ?, ?, ?, ?, ?, ?)",
             [(hub["id"],) + row for row in rows],
         )
         conn.commit()

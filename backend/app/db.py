@@ -29,6 +29,7 @@ def get_connection():
             declaration_date TEXT,
             title TEXT,
             designated_area TEXT,
+            declaration_type TEXT,
             PRIMARY KEY (hub_id, disaster_number)
         )
         """
