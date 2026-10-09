@@ -1,6 +1,7 @@
 .venv
 .env
 *.db
+!data/weather.db
 __pycache__
 node_modules
 logs/
