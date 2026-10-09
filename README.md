@@ -104,6 +104,26 @@ python -m scripts.chat_cli       # chat with the agent in the terminal (real API
 python -m scripts.print_scores   # table of the hazard scores for all 12 hubs
 ```
 
+## Alerts
+
+`check_alerts` compares every hub's four hazard scores and composite with the last saved
+snapshot (`data/score_snapshot.json`) and prints an alert for any score that changed by
+1.0 point or more. If the environment variable `ALERT_WEBHOOK_URL` is set, it also POSTs the
+alerts as JSON to that URL. It then saves the current scores as the new snapshot.
+
+Run it from `backend/` with the virtual environment activated:
+
+```bash
+python -m scripts.check_alerts
+```
+
+It is meant to run on a schedule (cron or Windows Task Scheduler), right after the two
+ingest scripts refresh the data.
+
+To try it: if `data/score_snapshot.json` does not exist, the first run creates it and prints
+"snapshot created". Change one number in that file (for example dallas `"heat": 100.0` to
+`90.0`), run it again, and it prints `dallas: heat changed from 90.0 to 100.0`.
+
 ## Deploy
 
 The backend also serves the built chat page, so one service runs the whole app.

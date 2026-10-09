@@ -1,0 +1,86 @@
+{
+  "miami": {
+    "hurricane": 100.0,
+    "flood": 25.0,
+    "winter": 0.0,
+    "heat": 0.4,
+    "composite": 41.3
+  },
+  "houston": {
+    "hurricane": 75.0,
+    "flood": 87.5,
+    "winter": 1.7,
+    "heat": 47.6,
+    "composite": 55.7
+  },
+  "dallas": {
+    "hurricane": 25.0,
+    "flood": 59.8,
+    "winter": 5.3,
+    "heat": 100.0,
+    "composite": 40.0
+  },
+  "atlanta": {
+    "hurricane": 50.0,
+    "flood": 40.2,
+    "winter": 2.2,
+    "heat": 11.3,
+    "composite": 29.8
+  },
+  "memphis": {
+    "hurricane": 0.0,
+    "flood": 80.5,
+    "winter": 10.3,
+    "heat": 21.5,
+    "composite": 25.9
+  },
+  "chicago": {
+    "hurricane": 0.0,
+    "flood": 62.8,
+    "winter": 59.8,
+    "heat": 4.0,
+    "composite": 31.2
+  },
+  "minneapolis": {
+    "hurricane": 0.0,
+    "flood": 34.8,
+    "winter": 94.3,
+    "heat": 4.4,
+    "composite": 32.9
+  },
+  "kansas_city": {
+    "hurricane": 0.0,
+    "flood": 50.0,
+    "winter": 31.2,
+    "heat": 22.5,
+    "composite": 23.7
+  },
+  "columbus": {
+    "hurricane": 0.0,
+    "flood": 21.0,
+    "winter": 37.3,
+    "heat": 0.4,
+    "composite": 14.6
+  },
+  "indianapolis": {
+    "hurricane": 0.0,
+    "flood": 25.2,
+    "winter": 32.8,
+    "heat": 0.7,
+    "composite": 14.6
+  },
+  "denver": {
+    "hurricane": 0.0,
+    "flood": 18.0,
+    "winter": 59.2,
+    "heat": 35.6,
+    "composite": 24.6
+  },
+  "seattle": {
+    "hurricane": 0.0,
+    "flood": 66.0,
+    "winter": 14.3,
+    "heat": 0.7,
+    "composite": 20.2
+  }
+}
