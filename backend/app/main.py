@@ -8,6 +8,7 @@ from uuid import uuid4
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, StringConstraints
 
 from app.agent.agent import run_agent
@@ -15,6 +16,7 @@ from app.agent.schema import FinalAnswer
 
 ROOT = Path(__file__).resolve().parents[2]
 LOGS_DIR = ROOT / "logs"
+FRONTEND_DIST = ROOT / "frontend" / "dist"
 
 logger = logging.getLogger(__name__)
 
@@ -86,3 +88,9 @@ def chat(request: ChatRequest) -> ChatResponse:
 
     SESSIONS[session_id] = messages
     return ChatResponse(session_id=session_id, **final)
+
+
+# Serve the built React page (npm run build) at "/". Mounted last, so /chat
+# and /health above are matched first.
+if FRONTEND_DIST.exists():
+    app.mount("/", StaticFiles(directory=FRONTEND_DIST, html=True), name="frontend")

@@ -102,6 +102,19 @@ python -m scripts.chat_cli       # chat with the agent in the terminal (real API
 python -m scripts.print_scores   # table of the hazard scores for all 12 hubs
 ```
 
+## Deploy
+
+The backend also serves the built chat page, so one service runs the whole app.
+`frontend/dist` is committed, so the host does not need Node.
+
+- Build command: `pip install -r backend/requirements.txt`
+- Start command: `cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+- Set `ANTHROPIC_API_KEY` as an environment variable on the host (there is no `.env` there).
+
+The page is then at the host's root URL, and the API at `/chat` and `/health`.
+After changing the frontend, run `npm run build` in `frontend/` and commit `frontend/dist`.
+Chat sessions are kept in server memory, so a restart or redeploy clears them.
+
 ## Example questions
 
 - Which hubs in the Midwest are most exposed to winter disruption?

@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import './App.css'
 
-const API_URL = 'http://localhost:8000/chat'
+// Dev: Vite runs on 5173 and the backend on 8000. Production build: same origin.
+const API_BASE = import.meta.env.DEV ? 'http://localhost:8000' : ''
+const API_URL = `${API_BASE}/chat`
 
 const EXAMPLE_QUESTIONS = [
   'Which hubs in the Midwest are most exposed to winter disruption?',
