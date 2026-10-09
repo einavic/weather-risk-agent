@@ -26,6 +26,10 @@ All commands start from the repository root.
    If PowerShell says "running scripts is disabled on this system", run
    `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` once, then activate again.
 
+   On Windows, clone into a short path such as `C:\Users\you\weather-risk-agent`, or enable
+   long paths (see pip's hint in the error). Some file paths inside the `anthropic` package are
+   long, and `pip install` fails if the full path goes over Windows' 260-character limit.
+
 2. API key: copy `.env.example` to `.env` in the repository root and put your key after the `=`:
 
    ```
@@ -45,7 +49,7 @@ All commands start from the repository root.
 
 The database `data/weather.db` is included in the repository, so no download is needed to run the app.
 
-To rebuild it from the APIs (needs internet, takes about a minute), run from `backend/` with the virtual environment activated:
+To rebuild it from the APIs (needs internet), run from `backend/` with the virtual environment activated:
 
 ```bash
 python -m scripts.ingest_weather   # Open-Meteo daily weather, prints "<hub> 1826 rows" for each of the 12 hubs
@@ -53,6 +57,10 @@ python -m scripts.ingest_fema      # FEMA declarations, prints "<hub> <n> rows" 
 ```
 
 Both scripts use `INSERT OR REPLACE`, so running them again updates the rows instead of duplicating them.
+
+Each weather request covers five years of data, so `ingest_weather` can hit Open-Meteo's free rate
+limit. If it stops with `429 Too Many Requests`, wait a minute and run it again. Rows that are
+already there are just replaced.
 The hub list is in `data/hubs.json`.
 
 ## Run
