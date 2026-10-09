@@ -4,6 +4,8 @@ A chat agent that helps a logistics company decide which of its 12 US distributi
 It scores each hub for winter, flood, hurricane and heat risk from Open-Meteo daily weather (2021-2025) and FEMA major disaster declarations (2006-2025).
 A Claude agent answers questions using tools over those scores, behind a FastAPI backend and a React chat page.
 
+Live demo: https://weather-risk-agent.onrender.com
+
 ## Prerequisites
 
 - Python 3.13 (tested with 3.13.14)
