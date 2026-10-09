@@ -124,7 +124,5 @@ Chat sessions are kept in server memory, so a restart or redeploy clears them.
 
 Follow-ups such as "and how does Houston compare?" work in the same chat.
 
-## Design doc and transcripts
-
-- Design doc: `docs/DESIGN.md`
+## Transcripts
 - Development transcripts: `transcripts/`
