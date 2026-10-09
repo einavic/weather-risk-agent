@@ -1,4 +1,5 @@
 import logging
+import sys
 from contextlib import asynccontextmanager
 from datetime import datetime
 from pathlib import Path
@@ -28,8 +29,8 @@ def setup_logging():
     LOGS_DIR.mkdir(exist_ok=True)
     log_path = LOGS_DIR / f"api_{datetime.now():%Y-%m-%d_%H-%M-%S}.log"
     logging.basicConfig(
-        filename=log_path,
-        encoding="utf-8",
+        # Log to the file and to the terminal (stdout), so a host's log viewer shows it too.
+        handlers=[logging.FileHandler(log_path, encoding="utf-8"), logging.StreamHandler(sys.stdout)],
         level=logging.INFO,
         format="%(asctime)s %(levelname)-7s %(name)s: %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
